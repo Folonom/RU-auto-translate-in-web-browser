@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <title>RU Auto Translate</title>
+  <style>
+    :root { color-scheme: dark; }
+    * { box-sizing: border-box; }
+    body {
+      width: 320px;
+      margin: 0;
+      padding: 14px;
+      font-family: -apple-system, "Segoe UI", Roboto, "YS Text", Arial, sans-serif;
+      background: linear-gradient(165deg, #171c28 0%, #10131c 100%);
+      color: #eef2f8;
+    }
+    .head { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+    .logo {
+      width: 34px; height: 34px; border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 800; font-size: 13px; color: #fff;
+      background: linear-gradient(135deg, #4d8dff, #7a5cff);
+      box-shadow: 0 6px 16px rgba(77, 141, 255, 0.35);
+    }
+    .titles { flex: 1; }
+    .title { font-size: 14px; font-weight: 700; }
+    .subtitle { font-size: 11px; color: #93a0b8; margin-top: 2px; }
+    .card {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      border-radius: 12px;
+      padding: 4px 12px;
+      margin-bottom: 10px;
+    }
+    .row { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 9px 0; }
+    .row + .row { border-top: 1px solid rgba(255, 255, 255, 0.06); }
+    .row-label { font-size: 13px; }
+    .row-hint { font-size: 10.5px; color: #8b98b0; margin-top: 2px; }
+    .switch { position: relative; width: 40px; height: 22px; flex: none; }
+    .switch input { display: none; }
+    .slider {
+      position: absolute; inset: 0; border-radius: 999px;
+      background: rgba(255, 255, 255, 0.14);
+      transition: background 140ms ease; cursor: pointer;
+    }
+    .slider::after {
+      content: ""; position: absolute; top: 3px; left: 3px;
+      width: 16px; height: 16px; border-radius: 50%;
+      background: #fff; transition: transform 140ms ease;
+    }
+    .switch input:checked + .slider { background: linear-gradient(135deg, #4d8dff, #7a5cff); }
+    .switch input:checked + .slider::after { transform: translateX(18px); }
+    .buttons { display: flex; gap: 8px; }
+    button.action {
+      flex: 1; appearance: none; border: none; border-radius: 11px;
+      padding: 10px 8px; font-size: 12.5px; font-weight: 600; cursor: pointer;
+      color: #fff; background: linear-gradient(135deg, #4d8dff, #7a5cff);
+      transition: filter 120ms ease, transform 120ms ease;
+    }
+    button.action.secondary { background: rgba(255, 255, 255, 0.09); color: #dbe3f0; }
+    button.action:hover { filter: brightness(1.1); }
+    button.action:active { transform: scale(0.98); }
+    .status {
+      margin-top: 10px; font-size: 11px; color: #93a0b8;
+      min-height: 16px; text-align: center;
+    }
+    .status.ok { color: #7ee2a8; }
+    .status.err { color: #ff9b9b; }
+    .pagestate {
+      margin-top: 2px; font-size: 11.5px; color: #c8d2e4;
+      min-height: 15px; text-align: center;
+    }
+    .pagestate b { color: #7ee2a8; font-weight: 600; }
+    .foot {
+      margin-top: 10px; font-size: 10px; color: #6b7892; text-align: center;
+      line-height: 1.5;
+    }
+    kbd {
+      background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 4px; padding: 0 4px; font-size: 10px; font-family: inherit;
+    }
+  </style>
+</head>
+<body>
+  <div class="head">
+    <div class="logo">RU</div>
+    <div class="titles">
+      <div class="title">RU Auto Translate</div>
+      <div class="subtitle">Любой язык → русский</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="row">
+      <div>
+        <div class="row-label">Расширение включено</div>
+        <div class="row-hint">Главный выключатель</div>
+      </div>
+      <label class="switch"><input type="checkbox" id="enabled" /><span class="slider"></span></label>
+    </div>
+    <div class="row">
+      <div>
+        <div class="row-label">Автоперевод страниц</div>
+        <div class="row-hint">Посты и комменты на лету (X, Reddit, любые сайты)</div>
+      </div>
+      <label class="switch"><input type="checkbox" id="pageEnabled" /><span class="slider"></span></label>
+    </div>
+    <div class="row">
+      <div>
+        <div class="row-label">Перевод выделения</div>
+        <div class="row-hint">Выделил текст — сразу перевод во всплывашке</div>
+      </div>
+      <label class="switch"><input type="checkbox" id="selectionEnabled" /><span class="slider"></span></label>
+    </div>
+    <div class="row">
+      <div>
+        <div class="row-label">Показывать всплывашку</div>
+        <div class="row-hint">Окошко с переводом выделения</div>
+      </div>
+      <label class="switch"><input type="checkbox" id="showBubble" /><span class="slider"></span></label>
+    </div>
+  </div>
+
+  <div class="buttons">
+    <button class="action" id="translateNow">Перевести страницу</button>
+    <button class="action secondary" id="restore">Оригинал</button>
+  </div>
+
+  <div class="pagestate" id="pagestate"></div>
+  <div class="status" id="status"></div>
+  <div class="foot">
+    Горячие клавиши: <kbd>Alt+Shift+R</kbd> — перевод страницы, <kbd>Alt+Shift+T</kbd> — вкл/выкл.
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

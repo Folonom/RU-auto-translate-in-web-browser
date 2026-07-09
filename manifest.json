@@ -1,0 +1,46 @@
+{
+  "manifest_version": 3,
+  "name": "RU Auto Translate",
+  "version": "1.1.0",
+  "description": "Автоперевод выделения, постов и комментариев на русский прямо на странице. Работает на X (Twitter), Reddit и любых сайтах, переводя ленту на лету.",
+  "permissions": ["storage"],
+  "host_permissions": ["<all_urls>"],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "commands": {
+    "translate-page": {
+      "suggested_key": { "default": "Alt+Shift+R" },
+      "description": "Перевести текущую страницу на русский"
+    },
+    "toggle-extension": {
+      "suggested_key": { "default": "Alt+Shift+T" },
+      "description": "Включить или выключить автоперевод"
+    }
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"],
+      "css": ["overlay.css"],
+      "run_at": "document_idle",
+      "all_frames": true
+    }
+  ],
+  "action": {
+    "default_title": "RU Auto Translate",
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icon16.png",
+      "32": "icon32.png",
+      "48": "icon48.png",
+      "128": "icon128.png"
+    }
+  },
+  "icons": {
+    "16": "icon16.png",
+    "32": "icon32.png",
+    "48": "icon48.png",
+    "128": "icon128.png"
+  }
+}

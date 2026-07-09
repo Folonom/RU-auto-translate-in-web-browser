@@ -1,0 +1,110 @@
+#ru-tr-bubble {
+  position: absolute;
+  z-index: 2147483647;
+  max-width: 380px;
+  min-width: 220px;
+  display: none;
+  flex-direction: column;
+  gap: 6px;
+  padding: 10px 12px 12px;
+  border-radius: 14px;
+  background: linear-gradient(160deg, #1c2230 0%, #141824 100%);
+  color: #f2f5fa;
+  box-shadow: 0 12px 32px rgba(5, 10, 20, 0.45), 0 0 0 1px rgba(255, 255, 255, 0.07);
+  font-family: -apple-system, "Segoe UI", Roboto, "YS Text", Arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.45;
+  animation: ru-tr-pop 140ms ease-out;
+  text-align: left;
+  -webkit-font-smoothing: antialiased;
+}
+
+#ru-tr-bubble.ru-tr-visible {
+  display: flex;
+}
+
+#ru-tr-bubble.ru-tr-loading .ru-tr-text {
+  opacity: 0.65;
+  font-style: italic;
+}
+
+#ru-tr-bubble .ru-tr-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+#ru-tr-bubble .ru-tr-logo {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 7px;
+  background: linear-gradient(135deg, #4d8dff, #7a5cff);
+  color: #fff;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+}
+
+#ru-tr-bubble .ru-tr-title {
+  flex: 1;
+  font-size: 12px;
+  font-weight: 600;
+  color: #aab6cc;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+}
+
+#ru-tr-bubble .ru-tr-copy,
+#ru-tr-bubble .ru-tr-close {
+  appearance: none;
+  border: none;
+  background: rgba(255, 255, 255, 0.08);
+  color: #cfd8e8;
+  width: 22px;
+  height: 22px;
+  border-radius: 7px;
+  font-size: 12px;
+  line-height: 1;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 120ms ease, color 120ms ease;
+  padding: 0;
+}
+
+#ru-tr-bubble .ru-tr-copy:hover,
+#ru-tr-bubble .ru-tr-close:hover {
+  background: rgba(255, 255, 255, 0.18);
+  color: #ffffff;
+}
+
+#ru-tr-bubble .ru-tr-text {
+  white-space: pre-wrap;
+  word-break: break-word;
+  max-height: 260px;
+  overflow: auto;
+}
+
+#ru-tr-bubble .ru-tr-text::-webkit-scrollbar {
+  width: 6px;
+}
+
+#ru-tr-bubble .ru-tr-text::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 3px;
+}
+
+@keyframes ru-tr-pop {
+  from {
+    opacity: 0;
+    transform: translateY(4px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
